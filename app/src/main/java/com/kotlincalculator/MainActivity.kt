@@ -6,12 +6,12 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import com.kotlincalculator.databinding.ActivityMainBinding
-import kotlin.math.log
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private var canAddDat = true
+    private var canConclude = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +46,7 @@ class MainActivity : AppCompatActivity() {
         if(binding.process.text.isNotEmpty() && controlSpecialCharacters()) {
             binding.process.append("%")
             canAddDat = true
+            canConclude = true
         }
     }
 
@@ -53,6 +54,7 @@ class MainActivity : AppCompatActivity() {
         if(binding.process.text.isNotEmpty() && controlSpecialCharacters()) {
             binding.process.append("÷")
             canAddDat = true
+            canConclude = true
         }
     }
 
@@ -60,6 +62,7 @@ class MainActivity : AppCompatActivity() {
         if(binding.process.text.isNotEmpty() && controlSpecialCharacters()){
             binding.process.append("x")
             canAddDat = true
+            canConclude = true
         }
     }
 
@@ -67,16 +70,51 @@ class MainActivity : AppCompatActivity() {
         if(binding.process.text.isNotEmpty() && controlSpecialCharacters()){
             binding.process.append("-")
             canAddDat = true
+            canConclude = true
         }
     }
     fun plus(view: View) {
         if(binding.process.text.isNotEmpty() && controlSpecialCharacters()){
             binding.process.append("+")
             canAddDat = true
+            canConclude = true
         }
     }
 
-    fun equal(view: View) {}
+    fun equal(view: View) {
+        if(binding.process.text.isNotEmpty() && controlSpecialCharacters() && canConclude) {
+            val operationList = arrayListOf<String>()
+            val digitsList = arrayListOf<String>()
+            var currentDigit = ""
+            var currentResult = 1
+
+            for(character in binding.process.text) {
+                if(character.isDigit() || character == '.') {
+                    currentDigit += character
+                }else {
+                    operationList.add(character.toString())
+                    digitsList.add(currentDigit)
+                    currentDigit = ""
+                }
+            }
+            digitsList.add(currentDigit)
+
+            /*
+                        for(i in 1..operationList.size) {
+                if(binding.process.text.contains("x")) {
+                    if(i == 1) {
+                        currentResult = digitsList[operationList.indexOf("x")].toInt() * digitsList[operationList.indexOf("x") + i].toInt()
+                        Log.e("s", currentResult.toString())
+                        Log.e("s", operationList.size.toString())
+                        Log.e("q", digitsList[operationList.indexOf("x")])
+                        Log.e("q", digitsList[operationList.indexOf("x") + i])
+                    }
+                }
+            }
+             */
+        }
+    }
+
     fun number(view: View) {
         if(view is Button) {
             when (view.text) {
