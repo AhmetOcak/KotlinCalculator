@@ -11,16 +11,12 @@ import kotlin.math.log
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private var canAddDat = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-    }
-
-    private fun controlDat() : Boolean {
-        if(binding.process.text.contains(".")) return false
-        return true
     }
 
     private fun controlSpecialCharacters() : Boolean {
@@ -47,22 +43,37 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun percent(view: View) {
-        if(binding.process.text.isNotEmpty() && controlSpecialCharacters()) binding.process.append("%")
+        if(binding.process.text.isNotEmpty() && controlSpecialCharacters()) {
+            binding.process.append("%")
+            canAddDat = true
+        }
     }
 
     fun divide(view: View) {
-        if(binding.process.text.isNotEmpty() && controlSpecialCharacters()) binding.process.append("÷")
+        if(binding.process.text.isNotEmpty() && controlSpecialCharacters()) {
+            binding.process.append("÷")
+            canAddDat = true
+        }
     }
 
     fun multiplication(view: View) {
-        if(binding.process.text.isNotEmpty() && controlSpecialCharacters()) binding.process.append("x")
+        if(binding.process.text.isNotEmpty() && controlSpecialCharacters()){
+            binding.process.append("x")
+            canAddDat = true
+        }
     }
 
     fun minus(view: View) {
-        if(binding.process.text.isNotEmpty() && controlSpecialCharacters()) binding.process.append("-")
+        if(binding.process.text.isNotEmpty() && controlSpecialCharacters()){
+            binding.process.append("-")
+            canAddDat = true
+        }
     }
     fun plus(view: View) {
-        if(binding.process.text.isNotEmpty() && controlSpecialCharacters()) binding.process.append("+")
+        if(binding.process.text.isNotEmpty() && controlSpecialCharacters()){
+            binding.process.append("+")
+            canAddDat = true
+        }
     }
 
     fun equal(view: View) {}
@@ -80,9 +91,10 @@ class MainActivity : AppCompatActivity() {
                 "1" -> binding.process.append("1")
                 "0" -> binding.process.append("0")
                 "." -> {
-                    if(binding.process.text.isNotEmpty() && controlDat() && controlSpecialCharacters()) {
+                    if(binding.process.text.isNotEmpty() && canAddDat && controlSpecialCharacters()) {
                         if(binding.process.text.last() != '.') {
                             binding.process.append(".")
+                            canAddDat = false
                         }
                     }
                 }
