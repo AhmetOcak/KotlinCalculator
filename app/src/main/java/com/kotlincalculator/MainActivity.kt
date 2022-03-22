@@ -88,7 +88,7 @@ class MainActivity : AppCompatActivity() {
     fun equal(view: View) {
         if (binding.process.text.isNotEmpty() && controlSpecialCharacters() && canConclude) {
             val result = calculate()
-            binding.process.text = " "
+            binding.process.text = ""
             binding.result.text = result
         }
     }
@@ -169,5 +169,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
 }
 
