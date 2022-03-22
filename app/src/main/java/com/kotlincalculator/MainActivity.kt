@@ -112,12 +112,16 @@ class MainActivity : AppCompatActivity() {
             result = if (i == 1) {
                 if (operationList[0] == "+" || operationList[0] == "-") {
                     additionSubstraction(digitsList[0], digitsList[1], operationList[0])
+                } else if (operationList[0] == "%") {
+                    percent(digitsList[0], digitsList[1])
                 } else {
                     timesDivison(digitsList[0], digitsList[1], operationList[0])
                 }
             } else {
                 if (operationList[i - 1] == "+" || operationList[i - 1] == "-") {
                     additionSubstraction(result, digitsList[i], operationList[i - 1])
+                } else if (operationList[i - 1] == "%") {
+                    percent(result, digitsList[i])
                 } else {
                     timesDivison(result, digitsList[i], operationList[i - 1])
                 }
@@ -143,6 +147,10 @@ class MainActivity : AppCompatActivity() {
         } else {
             (s1.toDouble() / s2.toDouble()).toString()
         }
+    }
+
+    private fun percent(s1: String, s2: String): String {
+        return ((s1.toDouble() * s2.toDouble()) / 100.0).toString()
     }
 
     fun number(view: View) {
