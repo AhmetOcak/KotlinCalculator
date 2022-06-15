@@ -1,4 +1,4 @@
-# KotlinCalculator
+# KotlinCalculator🧮
 
 <p align="left" width="100%">
   <img src="https://user-images.githubusercontent.com/73544434/159493557-cd97ccab-f848-4c77-b8a2-1f3d6ca930e8.png" width="240" height="480" />
